@@ -1,3 +1,12 @@
+# FAX-Automation-Tool
+
+![Excel VBA](https://img.shields.io/badge/-Excel%20VBA-217346?logo=microsoft-excel&logoColor=white)
+![Office Automation](https://img.shields.io/badge/-Office%20Automation-4CAF50)
+![RPA](https://img.shields.io/badge/-RPA-FF9800)
+![Portfolio](https://img.shields.io/badge/-Portfolio-black)
+
+Excel上の依頼データからFAX送信用の原本を自動生成し、複数事業所への転送・印刷を一括化するVBAツール。
+
 # 📠 提供表FAX送付状 自動作成ツール (Excel VBA)  
 **Automated FAX Cover Sheet Generator for Care Service Providers**
 
