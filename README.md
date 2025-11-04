@@ -7,65 +7,79 @@
 
 Excel上の依頼データからFAX送信用の原本を自動生成し、複数事業所への転送・印刷を一括化するVBAツール。
 
-# 📠 提供表FAX送付状 自動作成ツール (Excel VBA)  
-**Automated FAX Cover Sheet Generator for Care Service Providers**
+# 📠 FAX-Automation-Tool  
+**提供表FAX送付状 自動作成ツール (Excel VBA)**  
+Automated FAX Cover Sheet Generator for Care Service Providers  
 
 ---
 
-## 🧭 概要 / Overview
+## 🧭 概要 / Overview  
+このExcel VBAツールは、「サービスチェックシート」から各事業所ごとのFAX送付状を**ダブルクリック操作だけで自動生成**します。  
+介護・医療系の業務で、同一書類を複数の事業所へ送る際の事務作業を大幅に削減します。
 
-このツールは、Excel VBA を使って **「サービスチェックシート」から各事業所ごとのFAX送付状を自動生成** する仕組みです。  
-介護・医療系の業務で、複数宛先に同じ書類を送る際の手間を大幅に削減します。  
-
-This Excel VBA tool automatically generates individual FAX cover sheets for each care office  
-based on a master sheet ("サービスチェックシート"). It is designed to streamline FAX preparation in care or medical operations.
-
----
-
-## ⚙️ 主な機能 / Key Features
-
-✅ **ダブルクリックで自動生成**  
-Just double-click on the sheet to start generation.
-
-✅ **事業所ごとに自動シート作成**  
-Each care office gets its own sheet cloned from a FAX template.
-
-✅ **利用者名の重複除去・整列**  
-Automatically removes duplicate client names and formats the list neatly.
-
-✅ **FAX送信枚数を自動計算**  
-Auto-calculates total pages to be sent (count × 2 + 1).
-
-✅ **安全なシート名変換**  
-Automatically removes invalid characters and trims names for Excel compliance.
+This Excel VBA tool automatically generates individual FAX cover sheets for each care office based on the master sheet ("サービスチェックシート").  
+Just **double-click once** to produce formatted FAX sheets ready for printing or transmission.
 
 ---
 
-## 🧩 シート構成 / Sheet Structure
+## ⚙️ 主な機能 / Key Features  
 
-| シート名 | 役割 | Description |
-|:--|:--|:--|
-| サービスチェックシート | 元データ（A列＝事業所名、B列＝利用者名） | Base data |
-| FAX原本 | テンプレートシート | Template sheet |
-| 自動生成された各シート | 各事業所ごとのFAX送付状 | Generated sheets |
-
----
-
-## 🔍 動作の流れ / Process Flow
-
-1. 「サービスチェックシート」のA列（事業所名）とB列（利用者名）を走査  
-2. 「居宅介護支援事業所しらゆりケア」を除外  
-3. 同一事業所名の利用者をグループ化・重複除去  
-4. 「FAX原本」を複製し以下を出力：  
-   - A9：事業所名  
-   - A11：利用者名リスト（4名ごとに改行）  
-   - E5：送信枚数（利用者数×2+1）  
-5. メッセージ「シートの作成が完了しました。」を表示
+| 機能 | 説明 |
+|------|------|
+| 🖱️ **ダブルクリックで自動生成** | 「FAX原本」上の任意のセル（A列 or B列）をダブルクリックすると、各事業所のFAX送付状が自動作成されます。 |
+| 🧩 **事業所ごとのシート自動生成** | 「FAX原本」テンプレートを複製し、事業所名でシート命名。 |
+| 👥 **利用者名の重複除去・整列** | 同一事業所内で重複した利用者名を自動で整理。4名ごとに改行。 |
+| 🧾 **FAX送信枚数の自動計算** | `送信枚数 = 利用者数 × 2 + 1` で自動算出。 |
+| 🧹 **安全なシート名変換** | 禁止文字（/:\\?*[]）を除去してExcel準拠のシート名を生成。 |
 
 ---
 
-## 🧠 コード構成 / VBA Logic Overview
+## 🎯 使用手順 / How to Use  
 
-**主要イベント：**
-```vb
-Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+1. **Excelマクロを有効化**  
+　→ 「セキュリティの警告」が出たら「コンテンツの有効化」をクリック。  
+
+2. **「サービスチェックシート」シートを開く**  
+　→ 各事業所名がA列、利用者名がB列に入力されていることを確認。  
+
+3. **任意の事業所名セル（A列）をダブルクリック**  
+　→ 自動で以下が行われます：  
+　　- 「FAX原本」シートを複製  
+　　- 新しいシート名を事業所名に変更  
+　　- 該当利用者名リストを転記（重複削除・整形）  
+　　- 利用者数からFAX送信枚数を自動計算  
+
+4. **完了メッセージを確認**  
+　→ 「シートの作成が完了しました。」が表示されたら、FAX送付状が生成完了です。  
+
+---
+
+## 🧩 トリガー / Trigger  
+| トリガータイプ | 対象シート | 対象操作 | 動作内容 |
+|----------------|-------------|------------|-----------|
+| `Worksheet_BeforeDoubleClick` | `サービスチェックシート` | 任意のセルを**ダブルクリック** | VBAコードが実行され、FAX送付状を自動生成 |
+
+📌 **注意：**  
+- `サービスチェックシート` 以外でダブルクリックしても何も起きません。  
+- セル値が空欄の場合や「居宅介護支援事業所しらゆりケア」は除外されます。  
+
+---
+
+## 🧠 処理フロー / Logic Flow  
+
+```plaintext
+Double-click on "サービスチェックシート"
+        ↓
+Extract clicked care office name
+        ↓
+Filter matching client names (B列)
+        ↓
+Remove duplicates, format with separators
+        ↓
+Copy "FAX原本" template sheet
+        ↓
+Rename sheet to care office name
+        ↓
+Fill client list and total page count
+        ↓
+Display completion message
