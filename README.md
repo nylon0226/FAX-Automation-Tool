@@ -6,6 +6,7 @@
 ![Portfolio](https://img.shields.io/badge/-Portfolio-black)
 
 Excel上の依頼データからFAX送信用の原本を自動生成し、複数事業所への転送・印刷を一括化するVBAツール。
+※ファイル内の全ての個人情報等は全て偽名です。
 
 # 📠 FAX-Automation-Tool  
 **提供表FAX送付状 自動作成ツール (Excel VBA)**  
