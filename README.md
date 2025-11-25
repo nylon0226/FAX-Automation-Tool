@@ -62,7 +62,6 @@ Just **double-click once** to produce formatted FAX sheets ready for printing or
 
 📌 **注意：**  
 - `サービスチェックシート` 以外でダブルクリックしても何も起きません。  
-- セル値が空欄の場合や「居宅介護支援事業所しらゆりケア」は除外されます。  
 
 ---
 
